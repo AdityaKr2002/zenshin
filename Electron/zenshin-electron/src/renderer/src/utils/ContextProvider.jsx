@@ -18,7 +18,7 @@ export default function ZenshinProvider({ children }) {
   const [scrollOpacity, setScrollOpacity] = useState(false)
   const [hideHero, setHideHero] = useState(false)
   const [userId, setUserId] = useState('')
-  const [checkForUpdates, setCheckForUpdates] = useState(false)
+  const [checkForUpdates, setCheckForUpdates] = useState(true)
   const [backendPort, setBackendPort] = useState(64621)
   const [broadcastDiscordRpc, setBroadcastDiscordRpc] = useState(false)
   const [hoverCard, setHoverCard] = useState(true)

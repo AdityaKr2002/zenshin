@@ -314,9 +314,23 @@ router.get('/play', cookieMiddleware, async (req, res) => {
 
     // Parse the HTML to extract buttons with data-fansub and data-audio defined
     const buttonsData = []
-    const buttonRegex =
+    const buttonRegex1 =
       /<button[^>]+data-src="(https:\/\/kwik\.si.+?)"[^>]+data-fansub="(.+?)"[^>]+data-resolution="(.+?)"[^>]+data-audio="(.+?)"[^>]*>/g
+
+    // if kwik.si not found, try kwik.cx
+    const buttonRegex2 =
+      /<button[^>]+data-src="(https:\/\/kwik\.cx.+?)"[^>]+data-fansub="(.+?)"[^>]+data-resolution="(.+?)"[^>]+data-audio="(.+?)"[^>]*>/g
+
     let match
+
+    let buttonRegex = ''
+    if (resp.includes('kwik.si')) {
+      buttonRegex = buttonRegex1
+    } else if (resp.includes('kwik.cx')) {
+      buttonRegex = buttonRegex2
+    } else {
+      throw new Error('No kwik.si or kwik.cx links found in the page.')
+    }
 
     while ((match = buttonRegex.exec(resp)) !== null) {
       const src = match[1]

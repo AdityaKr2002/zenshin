@@ -13,7 +13,7 @@ export default function AnimePaheEpisode({ data }) {
   const {
     id,
     anime_id,
-    idMal ,
+    idMal,
     anime_session,
     episode,
     episode2,
@@ -46,10 +46,9 @@ export default function AnimePaheEpisode({ data }) {
     error
   } = useGetAnimePaheEps(anime_hash, active ? session : null)
 
-  console.log("Episode Play Data: ");
+  console.log('Episode Play Data: ')
 
-  console.log(episodePlayData);
-
+  console.log(episodePlayData)
 
   function handleClick() {
     // e.stopPropagation()
@@ -114,7 +113,10 @@ export default function AnimePaheEpisode({ data }) {
                       <p className="h-2 min-h-2 w-2 min-w-2 rounded-full bg-green-500"></p>
                     </Tooltip>
                   )}
-                  <p className="line-clamp-1"> <span className=''>{ix+1}.</span> Episode. {episode}</p>
+                  <p className="line-clamp-1">
+                    {' '}
+                    <span className="">{ix + 1}.</span> Episode. {episode}
+                  </p>
                 </p>
               </div>
             </div>
@@ -170,8 +172,8 @@ export default function AnimePaheEpisode({ data }) {
               className="group flex animate-fade-down cursor-pointer flex-col gap-y-1 border-2 border-[#2c2d3c] bg-[#111113] px-2 py-2 transition-all duration-150 ease-in-out animate-duration-500 hover:border-[#c084fc90]" //0f1012
               // onClick={() => navigate(`/animepahe/player/${encodeURIComponent(epdata.videoSrc)}`)}
               onClick={() => {
-                setPaneState({ isPaneOpen: true })
-                setVideoSrc(epdata.videoSrc)
+                // setPaneState({ isPaneOpen: true })
+                // setVideoSrc(epdata.videoSrc)
               }}
             >
               <div className="flex items-center gap-7">
@@ -197,9 +199,11 @@ export default function AnimePaheEpisode({ data }) {
                 >
                   {epdata.audio.toUpperCase()}
                 </Code>
-                <Button variant="soft" size="1" color="violet" className="text-xs">
-                  Stream on App
-                </Button>
+                <Tooltip content="Not working as of now !">
+                  <Button variant="soft" size="1" color="violet" className="text-xs" disabled>
+                    Stream on App
+                  </Button>
+                </Tooltip>
                 <Button
                   variant="soft"
                   size="1"
