@@ -386,6 +386,7 @@ router.get('/play', cookieMiddleware, async (req, res) => {
 
                 if (urlMatch && urlMatch[1]) {
                   urls.push({
+                    kwikSrc: button.src,
                     videoSrc: urlMatch[1],
                     fansub: button.fansub,
                     resolution: button.resolution,

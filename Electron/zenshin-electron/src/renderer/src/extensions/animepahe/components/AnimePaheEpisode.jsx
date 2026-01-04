@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { parseAnimepaheImage } from '../utils/parseAnimepaheImage'
 import { format } from 'date-fns'
 import { Button, Code, Skeleton, Tooltip } from '@radix-ui/themes'
@@ -8,6 +8,7 @@ import SlidingPane from 'react-sliding-pane'
 import '../../../sliding-pane.css'
 import AnimePahePlayerEmbedded from '../pages/AnimePahePlayerEmbedded'
 import { useZenshinContext } from '../../../utils/ContextProvider'
+import { OpenInNewWindowIcon } from '@radix-ui/react-icons'
 
 export default function AnimePaheEpisode({ data }) {
   const {
@@ -169,15 +170,16 @@ export default function AnimePaheEpisode({ data }) {
           {episodePlayData?.map((epdata) => (
             <div
               key={epdata.videoSrc}
-              className="group flex animate-fade-down cursor-pointer flex-col gap-y-1 border-2 border-[#2c2d3c] bg-[#111113] px-2 py-2 transition-all duration-150 ease-in-out animate-duration-500 hover:border-[#c084fc90]" //0f1012
+              className="group flex animate-fade-down cursor-pointer flex-row justify-between gap-y-1 border-2 border-[#2c2d3c] bg-[#111113] px-2 py-2 transition-all duration-150 ease-in-out animate-duration-500 hover:border-[#c084fc90]" //0f1012
               // onClick={() => navigate(`/animepahe/player/${encodeURIComponent(epdata.videoSrc)}`)}
               onClick={() => {
+                // Open Sliding Pane and set video src - NOT WORKING
                 // setPaneState({ isPaneOpen: true })
                 // setVideoSrc(epdata.videoSrc)
               }}
             >
               <div className="flex items-center gap-7">
-                <p className="min-w-28 cursor-pointer font-space-mono text-sm tracking-wide opacity-55 transition-all duration-150 ease-in-out group-hover:text-purple-400 group-hover:opacity-100">
+                <p className="min-w-28 font-space-mono text-sm tracking-wide opacity-55 transition-all duration-150 ease-in-out group-hover:text-purple-400 group-hover:opacity-100">
                   {epdata.fansub}
                 </p>
                 <p
@@ -199,12 +201,16 @@ export default function AnimePaheEpisode({ data }) {
                 >
                   {epdata.audio.toUpperCase()}
                 </Code>
-                <Tooltip content="Not working as of now !">
-                  <Button variant="soft" size="1" color="violet" className="text-xs" disabled>
+
+                {/* Stream on App - NOT WORKING */}
+                {/* <Tooltip content="Not working as of now !">
+                  <Button variant="soft" size="1" color="violet" className="text-xs">
                     Stream on App
                   </Button>
-                </Tooltip>
-                <Button
+                </Tooltip> */}
+
+                {/* External Player - NOT WORKING */}
+                {/* <Button
                   variant="soft"
                   size="1"
                   color="mint"
@@ -220,8 +226,25 @@ export default function AnimePaheEpisode({ data }) {
                   }}
                 >
                   Stream on External Player
-                </Button>
+                </Button> */}
               </div>
+              <Link target="_blank" to={`${epdata.kwikSrc}`}>
+                <Button
+                  variant="outline"
+                  size="1"
+                  color="gray"
+                  className="text-xs"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                  }}
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                >
+                  Open Stream in Browser
+                  <OpenInNewWindowIcon className="ml-1" />
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
